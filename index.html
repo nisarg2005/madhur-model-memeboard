@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>Madhur Model — Meme Soundboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="mmtrip.png">
+</head>
+<body>
+  <header>
+    <img id="logo" src="mmtrip.png" alt="Madhur Model logo">
+    <h1>Meme Soundboard</h1>
+  </header>
+  <hr>
+  <main>
+    <div class="board-tools">
+      <p class="hint">Click a sound to play it. Click it again to pause.</p>
+      <button id="stopAllBtn" type="button" aria-label="Stop all sounds">■ Stop All</button>
+    </div>
+
+    <div id="board" aria-label="Meme sounds"></div>
+
+    <section id="add">
+      <h2>Add your own sound</h2>
+      <div class="row">
+        <div class="field">
+          <label for="newName">Button name</label>
+          <input id="newName" type="text" placeholder="e.g. Bruh" maxlength="24">
+        </div>
+        <div class="field">
+          <label for="newFile">Audio file</label>
+          <input id="newFile" type="file" accept="audio/*">
+        </div>
+        <button id="addBtn" type="button">Add button</button>
+      </div>
+      <p id="msg" role="status" aria-live="polite"></p>
+      <p class="storage-note">Custom sounds are saved in this browser only.</p>
+    </section>
+  </main>
+
+      <div class="backup-tools" aria-label="Soundboard backup tools">
+      <div class="backup-copy">
+        <span class="backup-sticker">NEW!</span>
+        <div>
+          <h2>TAKE YOUR SOUNDS WITH YOU</h2>
+          <p>Moving laptops? Pack up your custom sounds and bring them along.</p>
+        </div>
+      </div>
+      <div class="backup-actions">
+        <button id="exportBtn" type="button" disabled>⬇ EXPORT BACKUP</button>
+        <button id="importBtn" type="button" disabled>⬆ IMPORT BACKUP</button>
+        <input id="importFile" type="file" accept=".zip,application/zip" hidden>
+      </div>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

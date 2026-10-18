@@ -1,0 +1,281 @@
+:root {
+  --bg: #000;
+  --text: #f2f2f2;
+  --muted: #8a8a8a;
+  --line: #2a2a2a;
+  --pink: #ff3d8b;
+  --yellow: #ffd400;
+  --cyan: #22e0ff;
+  --lime: #8cff3a;
+  --orange: #ff7a1a;
+  --purple: #a66bff;
+  --display: "Bangers", "Impact", "Arial Black", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 16px 8px;
+}
+#logo { height: 60px; width: auto; }
+h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--pink), 6px 6px 0 var(--cyan);
+  transform: rotate(-2deg);
+}
+h2 { font-family: var(--display); font-weight: 400; letter-spacing: 1px; font-size: 1.5rem; margin: 0 0 12px; }
+main { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+
+/* ===== Funky buttons ===== */
+#board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 26px 20px;
+  padding: 14px 6px;
+}
+.pad { position: relative; --c: var(--pink); transform: rotate(-2deg); transition: transform .15s; }
+.pad:nth-child(6n+1) { --c: var(--pink);   transform: rotate(-2deg); }
+.pad:nth-child(6n+2) { --c: var(--yellow); transform: rotate(1.5deg); }
+.pad:nth-child(6n+3) { --c: var(--cyan);   transform: rotate(-1deg); }
+.pad:nth-child(6n+4) { --c: var(--lime);   transform: rotate(2.5deg); }
+.pad:nth-child(6n+5) { --c: var(--orange); transform: rotate(-2.5deg); }
+.pad:nth-child(6n)   { --c: var(--purple); transform: rotate(1deg); }
+.pad:hover { transform: rotate(0deg) scale(1.06); z-index: 1; }
+
+.pad > .play {
+  width: 100%;
+  min-height: 120px;
+  padding: 14px 10px;
+  background: var(--c);
+  color: #000;
+  border: 4px solid #000;
+  border-radius: 22px 40px 22px 40px;
+  box-shadow: 0 0 0 3px #fff, 7px 7px 0 3px #fff;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform .08s, box-shadow .08s;
+}
+.pad > .play .icon {
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  background: #000;
+  color: var(--c);
+  border-radius: 50%;
+  font-size: 1rem;
+  font-family: system-ui, sans-serif;
+}
+.pad > .play:active {
+  transform: translate(6px, 6px) scale(.97);
+  box-shadow: 0 0 0 3px #fff, 1px 1px 0 3px #fff;
+}
+.pad.playing { animation: wiggle .5s ease-in-out infinite; }
+.pad.playing > .play { box-shadow: 0 0 0 3px #fff, 7px 7px 0 3px #fff, 0 0 28px 6px var(--c); }
+.pad.missing > .play {
+  filter: grayscale(1) brightness(.5);
+  border-style: dashed;
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg) scale(1.05); }
+  50%      { transform: rotate(3deg)  scale(1.08); }
+}
+
+.pad .remove {
+  position: absolute;
+  top: -10px; right: -8px;
+  width: 28px; height: 28px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.pad .remove:hover { background: var(--pink); color: #000; }
+
+/* ===== Add section ===== */
+#add {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 3px dashed var(--line);
+}
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+input[type="text"] {
+  background: #111;
+  color: var(--text);
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+}
+input[type="file"] { color: var(--muted); font: inherit; font-size: .9rem; max-width: 100%; }
+input[type="file"]::file-selector-button {
+  background: var(--cyan);
+  color: #000;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-right: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+#addBtn {
+  background: var(--lime);
+  color: #000;
+  border: 3px solid #000;
+  border-radius: 14px;
+  box-shadow: 0 0 0 2px #fff, 4px 4px 0 2px #fff;
+  padding: 10px 18px;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform .08s, box-shadow .08s;
+}
+#addBtn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 2px #fff, 0 0 0 2px #fff; }
+#msg { color: var(--muted); min-height: 1.2em; margin: 12px 0 0; font-size: .9rem; }
+
+:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .pad.playing { animation: none; }
+}
+
+/* Small usability improvements for the shareable soundboard */
+.board-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 8px 6px 12px;
+}
+.hint, .storage-note {
+  color: var(--muted);
+  margin: 0;
+  font-size: .92rem;
+}
+#stopAllBtn {
+  background: #fff;
+  color: #000;
+  border: 3px solid #000;
+  border-radius: 14px;
+  box-shadow: 0 0 0 2px #fff, 4px 4px 0 2px var(--pink);
+  padding: 10px 16px;
+  font: 700 1rem system-ui, sans-serif;
+  cursor: pointer;
+}
+#stopAllBtn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 2px #fff; }
+#stopAllBtn:disabled, #addBtn:disabled { opacity: .6; cursor: wait; }
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.field label {
+  color: var(--muted);
+  font-size: .85rem;
+}
+#newName { min-width: 180px; }
+.pad.missing .label { overflow-wrap: anywhere; }
+.storage-note { margin-top: 4px; font-size: .82rem; }
+
+@media (max-width: 520px) {
+  header { gap: 10px; padding-top: 24px; }
+  #logo { height: 42px; max-width: 70px; object-fit: contain; }
+  h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); letter-spacing: 1px; }
+  main { padding: 18px 14px 48px; }
+  #board { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; padding-inline: 4px; }
+  .pad > .play { min-height: 108px; font-size: 1.25rem; padding-inline: 7px; }
+  .row { align-items: stretch; flex-direction: column; }
+  .field, #newName, input[type="file"], #addBtn { width: 100%; }
+  .board-tools { align-items: stretch; }
+  #stopAllBtn { align-self: flex-start; }
+}
+
+
+/* ===== Funky portable-backup panel ===== */
+.backup-tools {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 12px 6px 22px;
+  padding: 18px;
+  color: #000;
+  background: var(--yellow);
+  border: 4px solid #fff;
+  border-radius: 24px 12px 24px 12px;
+  box-shadow: 7px 7px 0 var(--pink);
+  transform: rotate(-.35deg);
+}
+.backup-copy { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.backup-sticker {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  padding: 5px;
+  color: #fff;
+  background: var(--pink);
+  border: 3px solid #000;
+  border-radius: 50%;
+  font: 1rem var(--display);
+  text-align: center;
+  transform: rotate(9deg);
+}
+.backup-copy h2 { margin: 0 0 5px; font-size: 1.35rem; line-height: 1.1; }
+.backup-copy p { margin: 0; max-width: 420px; font-size: .9rem; line-height: 1.4; }
+.backup-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.backup-actions button {
+  padding: 11px 14px;
+  color: #fff;
+  background: #000;
+  border: 3px solid #fff;
+  border-radius: 12px 18px 12px 18px;
+  box-shadow: 3px 3px 0 var(--cyan);
+  font: 1rem var(--display);
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: transform .08s, box-shadow .08s;
+}
+.backup-actions button:nth-child(2) { box-shadow: 3px 3px 0 var(--purple); }
+.backup-actions button:hover:not(:disabled) { transform: translate(-1px, -2px) rotate(-1deg); }
+.backup-actions button:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: none; }
+.backup-actions button:disabled { opacity: .55; cursor: not-allowed; }
+@media (max-width: 600px) {
+  .backup-tools { align-items: stretch; margin-inline: 4px; padding: 14px; }
+  .backup-copy { align-items: flex-start; }
+  .backup-sticker { width: 46px; height: 46px; font-size: .85rem; }
+  .backup-copy h2 { font-size: 1.15rem; }
+  .backup-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .backup-actions button { padding: 10px 7px; font-size: .95rem; }
+}
